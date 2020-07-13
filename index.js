@@ -10,7 +10,7 @@ async function run() {
     const token = core.getInput('token');
     const octokit = github.getOctokit(token);
 
-    console.log('Payload: ${JSON.stringify(github.context.payload)}');
+    console.log(`Payload: ${JSON.stringify(github.context.payload)}`);
 
     // if the card was moved between columns
     //   find the issue associated with the Card
