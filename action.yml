@@ -1,6 +1,10 @@
 name: 'Card Moved Notifier'
 description: 'Notifies the issue assignee when its corresponding project card is moved between columns.'
 inputs:
+  token:
+    description: 'The GitHub authentication token.'
+    required: false
+    default: ${{ github.token }}
   assignee-filter:
     description: 'Only send notifications for the specified assignees.'
 runs:
