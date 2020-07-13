@@ -29,17 +29,23 @@ async function run() {
           //   if the assignee filter is unset, or the assignee filter matches the issue assignees
           //   and a comment to the issue to notify the assignee
           const assignees = issueResponse.data.assignees.map((assignee) => { return '@' + assignee.login; });
-          console.log(`Assignees: ${JSON.stringify(assignees)}`);
 
-          const comment = `Heads up - this issue was moved between project columns. cc ${assignees.join(', ')}`;
-          console.log(`Comment: ${comment}`);
+          if(assignees.length > 0) {
+            console.log(`Assignees: ${JSON.stringify(assignees)}`);
 
-          const createCommentResponse = await octokit.issues.createComment({
-            owner,
-            repo,
-            issue_number: issueResponse.data.number,
-            body: comment
-          });
+            const comment = `Heads up - this issue was moved between project columns. cc ${assignees.join(', ')}`;
+            console.log(`Comment: ${comment}`);
+
+            const createCommentResponse = await octokit.issues.createComment({
+              owner,
+              repo,
+              issue_number: issueResponse.data.number,
+              body: comment
+            });
+          } else {
+            console.log("No issue assignee - doing nothing.");
+          }
+
 
           console.log('All done!');
 
