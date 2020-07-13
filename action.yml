@@ -5,8 +5,8 @@ inputs:
     description: 'The GitHub authentication token.'
     required: false
     default: ${{ github.token }}
-  assignee-filter:
-    description: 'Only send notifications for the specified assignees.'
+  assigneeFilter:
+    description: 'Only send notifications for the specified assignees. Use comma seperated values.'
 runs:
   using: 'node12'
   main: 'index.js'

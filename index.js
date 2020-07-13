@@ -26,14 +26,17 @@ async function run() {
           // });
           const issueResponse = await octokit.request(github.context.payload.project_card.content_url);
           console.log(`Issue Response: ${JSON.stringify(issueResponse)}`);
+          const assigneeFilter = core.getInput('assigneeFilter').split(',');
           //   if the assignee filter is unset, or the assignee filter matches the issue assignees
           //   and a comment to the issue to notify the assignee
-          const assignees = issueResponse.data.assignees.map((assignee) => { return '@' + assignee.login; });
+          const assignees = issueResponse.data.assignees.filter((assignee) => {
+            return assigneeFilter.length = 0 || assigneeFilter.findIndex((filterItem) => { assignee.toLowerCase() == filterItem.replace(/\s/g, '').toLowerCase(); }) > -1;
+          });
 
           if(assignees.length > 0) {
             console.log(`Assignees: ${JSON.stringify(assignees)}`);
 
-            const comment = `Heads up - this issue was moved between project columns. cc ${assignees.join(', ')}`;
+            const comment = `Heads up - this issue was moved between project columns. cc ${assignees.map((assignee) => { return '@' + assignee }).join(', ')}`;
             console.log(`Comment: ${comment}`);
 
             const createCommentResponse = await octokit.issues.createComment({
