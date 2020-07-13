@@ -23,4 +23,4 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-        - uses: jenschelkopf/project-card-moved-notification@master
+        - uses: jenschelkopf/project-card-moved-notification@1.0
