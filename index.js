@@ -18,12 +18,13 @@ async function run() {
       //   find the issue associated with the Card
       //   cards can be notes or issues. Only issues have the content_url
       if (github.context.payload.project_card.content_url) {
+          console.log(`Using content url: ${github.context.payload.project_card.content_url}`);
           // const issue = await octokit.issues.get({
           //   owner,
           //   repo,
           //   issue_number: issueNumber,
           // });
-          const issueResponse = await ocktokit.request(github.context.payload.project_card.content_url);
+          const issueResponse = await octokit.request(github.context.payload.project_card.content_url);
           console.log(`Issue Response: ${JSON.stringify(issueResponse)}`);
           //   if the assignee filter is unset, or the assignee filter matches the issue assignees
           //   and a comment to the issue to notify the assignee
