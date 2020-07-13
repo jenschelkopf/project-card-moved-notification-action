@@ -1,0 +1,8 @@
+name: 'Card Moved Notifier'
+description: 'Notifies the issue assignee when its corresponding project card is moved between columns.'
+inputs:
+  assignee-filter:
+    description: 'Only send notifications for the specified assignees.'
+runs:
+  using: 'node12'
+  main: 'index.js'
