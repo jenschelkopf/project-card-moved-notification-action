@@ -38,7 +38,7 @@ async function run() {
           if(assignees.length > 0) {
             console.log(`Assignees: ${JSON.stringify(assignees)}`);
 
-            const comment = `Heads up - this issue was moved between project columns. cc ${assignees.map((assignee) => { return '@' + assignee }).join(', ')}`;
+            const comment = `Heads up - this issue was moved between project columns. cc ${assignees.map((assignee) => { return '@' + assignee.login }).join(', ')}`;
             console.log(`Comment: ${comment}`);
 
             const createCommentResponse = await octokit.issues.createComment({
