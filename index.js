@@ -30,7 +30,7 @@ async function run() {
           //   if the assignee filter is unset, or the assignee filter matches the issue assignees
           //   and a comment to the issue to notify the assignee
           const assignees = issueResponse.data.assignees.filter((assignee) => {
-            return assigneeFilter.length = 0 || assigneeFilter.findIndex((filterItem) => { assignee.toLowerCase() == filterItem.replace(/\s/g, '').toLowerCase(); }) > -1;
+            return assigneeFilter.length = 0 || assigneeFilter.findIndex((filterItem) => { filterItem.toLowerCase() == filterItem.replace(/\s/g, '').toLowerCase(); }) > -1;
           });
 
           if(assignees.length > 0) {
