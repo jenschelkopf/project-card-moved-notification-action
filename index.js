@@ -28,7 +28,7 @@ async function run() {
           console.log(`Issue Response: ${JSON.stringify(issueResponse)}`);
           //   if the assignee filter is unset, or the assignee filter matches the issue assignees
           //   and a comment to the issue to notify the assignee
-          const assignees = issueResponse.body.assignees.map((assignee) => { return '@' + assignee.login; });
+          const assignees = issueResponse.data.assignees.map((assignee) => { return '@' + assignee.login; });
           console.log(`Assignees: ${JSON.stringify(assignees)}`);
 
           const comment = `Heads up - this issue was moved between project columns. cc ${assignees.join(', ')}`;
