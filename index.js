@@ -27,7 +27,7 @@ async function run() {
           const issueResponse = await octokit.request(github.context.payload.project_card.content_url);
           console.log(`Issue Response: ${JSON.stringify(issueResponse)}`);
 
-          const assigneeFilter = core.getInput('assigneeFilter').split(',');
+          const assigneeFilter = core.getInput('assigneeFilter').length > 0 ? core.getInput('assigneeFilter').length > 0.split(',') || [];
           console.log(`Assignee filter is ${assigneeFilter}, and length is ${assigneeFilter.length}`);
           //   if the assignee filter is unset, or the assignee filter matches the issue assignees
           //   and a comment to the issue to notify the assignee
