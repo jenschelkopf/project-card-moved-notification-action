@@ -13,9 +13,41 @@ async function run() {
     console.log(`Payload: ${JSON.stringify(github.context.payload)}`);
 
     // if the card was moved between columns
-    //   find the issue associated with the Card
-    //   if the assignee filter is unset, or the assignee filter matches the issue assignees
-    //   and a comment to the issue to notify the assignee
+    const changedColumnId = github.context.payload.changes.column_id;
+    if (changedColumnId) {
+      //   find the issue associated with the Card
+      //   cards can be notes or issues. Only issues have the content_url
+      if (github.context.payload.project_card.content_url) {
+          // const issue = await octokit.issues.get({
+          //   owner,
+          //   repo,
+          //   issue_number: issueNumber,
+          // });
+          const issueResponse = await ocktokit.request(github.context.payload.project_card.content_url);
+          console.log(`Issue Response: ${JSON.stringify(issueResponse)}`);
+          //   if the assignee filter is unset, or the assignee filter matches the issue assignees
+          //   and a comment to the issue to notify the assignee
+          const assignees = issueResponse.body.assignees.map((assignee) => { return '@' + assignee.login; });
+          console.log(`Assignees: ${JSON.stringify(assignees)}`);
+
+          const comment = `Heads up - this issue was moved between project columns. cc ${assignees.join(', ')}`;
+          console.log(`Comment: ${comment}`);
+
+          const createCommentResponse = await octokit.issues.createComment({
+            owner,
+            repo,
+            issue_number: issueResponse.data.number,
+            body: comment
+          });
+
+          console.log('All done!');
+
+      }
+
+
+    }
+
+
 
     // const labelRecipients = core.getInput('recipients').split("\n");
     // const match = labelRecipients.find((labelRecipient) => {
@@ -38,7 +70,7 @@ async function run() {
     // }
   } catch (error) {
     console.error(error);
-    core.setFailed(`The issue-label-notification-action action failed with ${error}`);
+    core.setFailed(`The action failed with ${error}`);
   }
 }
 
