@@ -32,9 +32,13 @@ async function run() {
           //   if the assignee filter is unset, or the assignee filter matches the issue assignees
           //   and a comment to the issue to notify the assignee
           const assignees = issueResponse.data.assignees.filter((assignee) => {
-            return assigneeFilter.length == 0 || assigneeFilter.findIndex((filterItem) => {
-              console.log(`Comparing filter ${filterItem.toLowerCase()} to assignee ${assignee.replace(/\s/g, '').toLowerCase()}`);
-              filterItem.toLowerCase() == assignee.replace(/\s/g, '').toLowerCase();
+            if(assigneeFilter.length == 0) {
+              console.log(`No assignee filter is set, so notifying ${assignee.login}`);
+              return true;
+            }
+            return assigneeFilter.findIndex((filterItem) => {
+              console.log(`Comparing filter ${filterItem.toLowerCase()} to assignee ${assignee.login.replace(/\s/g, '').toLowerCase()}`);
+              filterItem.toLowerCase() == assignee.login.replace(/\s/g, '').toLowerCase();
             }) > -1;
           });
 
