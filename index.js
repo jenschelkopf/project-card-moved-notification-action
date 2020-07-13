@@ -33,6 +33,7 @@ async function run() {
           //   and a comment to the issue to notify the assignee
           const assignees = issueResponse.data.assignees.filter((assignee) => {
             return assigneeFilter.length == 0 || assigneeFilter.findIndex((filterItem) => {
+              console.log(`Comparing filter ${filterItem.toLowerCase()} to assignee ${assignee.replace(/\s/g, '').toLowerCase()}`);
               filterItem.toLowerCase() == assignee.replace(/\s/g, '').toLowerCase();
             }) > -1;
           });
