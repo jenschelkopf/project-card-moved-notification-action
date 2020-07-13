@@ -38,7 +38,7 @@ async function run() {
             }
             return assigneeFilter.findIndex((filterItem) => {
               console.log(`Comparing filter ${filterItem.toLowerCase()} to assignee ${assignee.login.replace(/\s/g, '').toLowerCase()}`);
-              filterItem.toLowerCase() == assignee.login.replace(/\s/g, '').toLowerCase();
+              return filterItem.toLowerCase() == assignee.login.replace(/\s/g, '').toLowerCase();
             }) > -1;
           });
 
