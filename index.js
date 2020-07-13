@@ -1,19 +1,16 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { correctRecipients, correctMessage } = require('./utils');
 
 async function run() {
   try {
-    const issueNumber = github.context.payload.issue.number;
     const owner = github.context.repo.owner;
     const repo = github.context.repo.repo;
-    const label = github.context.payload.label.name;
 
     // https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token#about-the-github_token-secret
     const token = core.getInput('token');
     const octokit = github.getOctokit(token);
 
-    console.log('Payload: ${github.context.payload}');
+    console.log('Payload: ${JSON.stringify(github.context.payload)}');
 
     // if the card was moved between columns
     //   find the issue associated with the Card
