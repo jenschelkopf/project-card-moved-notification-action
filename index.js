@@ -13,7 +13,7 @@ async function run() {
     console.log(`Payload: ${JSON.stringify(github.context.payload)}`);
 
     // if the card was moved between columns
-    const changedColumnId = github.context.payload.changes.column_id;
+    const changedColumnId = github.context.payload.changes && github.context.payload.changes.column_id;
     if (changedColumnId) {
       //   find the issue associated with the Card
       //   cards can be notes or issues. Only issues have the content_url
